@@ -149,8 +149,13 @@ public abstract class Usuario {
 
     /**
      * @param libroPrestamo the libroPrestamo to set
+     * Se setea un libro si es que libroPrestamo está en 0
      */
     public void setLibroPrestamo(int libroPrestamo) {
+        if (getLibroPrestamo() != 0){
+            throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
+        }
+        
         this.libroPrestamo = libroPrestamo;
     }
     
