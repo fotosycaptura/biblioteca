@@ -110,7 +110,11 @@ public abstract class Usuario {
      * @param nombre the nombre to set
      */
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        if (nombre != null && nombre.length() > 0){
+            this.nombre = nombre;
+        }else{
+            throw new IllegalArgumentException("Nombre inválido");
+        }
     }
 
     /**
