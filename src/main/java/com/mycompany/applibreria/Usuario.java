@@ -10,11 +10,15 @@ import java.util.*;
  * @author Tom
  */
 public abstract class Usuario {
+    //Permitirá almacenar el Run del usuario
     private String RUN;
+    //Permitirá almacenar el nombre del usuario
     private String nombre;
+    //Permitirá establecer el género. (M o F)
     private char genero;
+    //Sevirá de estado "vigente" en el sentido de si
+    //Tiene un número mayor a 0, no se le podrá prestar libros
     private int libroPrestamo;
-    private Boolean vigente;
     
     public Usuario(String RUN) {
         setRUN(RUN);
@@ -125,7 +129,8 @@ public abstract class Usuario {
     }
 
     /**
-     * @param genero the genero to set
+     * @param genero Establece el género del usuario, en M o F, de Masculino
+     * o Femenino respectivamente
      */
     public void setGenero(char genero) {
         if (genero != 'M' && genero != 'F') {
@@ -147,20 +152,6 @@ public abstract class Usuario {
      */
     public void setLibroPrestamo(int libroPrestamo) {
         this.libroPrestamo = libroPrestamo;
-    }
-
-    /**
-     * @return the vigente
-     */
-    public Boolean getVigente() {
-        return vigente;
-    }
-
-    /**
-     * @param vigente the vigente to set
-     */
-    public void setVigente(Boolean vigente) {
-        this.vigente = vigente;
     }
     
 }
