@@ -1,2 +1,3 @@
+/Biblioteca/src/main/java/unab/biblioteca/
 /target/classes/*
-/target/classes/unab/biblioteca/*.class
+/target/classes/com/mycompany/applibreria/*.class

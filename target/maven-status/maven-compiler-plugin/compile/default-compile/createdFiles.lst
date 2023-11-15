@@ -1,4 +1,8 @@
-unab\biblioteca\Estudiante.class
-unab\biblioteca\Docente.class
-unab\biblioteca\Usuario.class
-unab\biblioteca\Biblioteca.class
+com\mycompany\applibreria\Devolucion.class
+com\mycompany\applibreria\Libro.class
+com\mycompany\applibreria\Usuario.class
+com\mycompany\mavenproject1\Libro.class
+com\mycompany\applibreria\Prestamo.class
+com\mycompany\applibreria\Docente.class
+com\mycompany\applibreria\Estudiante.class
+com\mycompany\applibreria\AppLibreria.class
