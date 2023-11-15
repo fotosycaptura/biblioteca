@@ -117,7 +117,7 @@ public abstract class Usuario {
         if (nombre != null && nombre.length() > 0){
             this.nombre = nombre;
         }else{
-            throw new IllegalArgumentException("Nombre inválido");
+            throw new IllegalArgumentException("Nombre inválido. Por favor ingrese un nombre!");
         }
     }
 
@@ -134,7 +134,7 @@ public abstract class Usuario {
      */
     public void setGenero(char genero) {
         if (genero != 'M' && genero != 'F') {
-            throw new IllegalArgumentException("El género es incorreto");
+            throw new IllegalArgumentException("El género es incorreto. Solo indique: M para masculino, F para femenino.");
         }
         
         this.genero = genero;
