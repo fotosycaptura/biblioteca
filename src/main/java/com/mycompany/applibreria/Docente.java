@@ -52,7 +52,6 @@ public class Docente extends Usuario {
         return "Run: " + getRUN() + "\t" +
                 "Nombre: " + getNombre() + "\t" +
                 "Profesión: " + getProfesion() + "\t" +
-                "Grado Académico: " + getGradoAcademico() + "\t" +
-                "Estado: " + getVigente();
+                "Grado Académico: " + getGradoAcademico() + "\t";
     }
 }

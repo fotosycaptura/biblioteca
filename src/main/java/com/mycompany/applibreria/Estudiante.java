@@ -36,7 +36,6 @@ public class Estudiante extends Usuario {
     public String toString() {
         return "Run: " + getRUN() + "\t" +
                 "Nombre: " + getNombre() + "\t" +
-                "Carrera: " + getCarrera() + "\t" +
-                "Estado: " + getVigente();
+                "Carrera: " + getCarrera() + "\t";
     }
 }
