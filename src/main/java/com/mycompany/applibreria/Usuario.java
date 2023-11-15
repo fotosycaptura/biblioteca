@@ -128,6 +128,10 @@ public abstract class Usuario {
      * @param genero the genero to set
      */
     public void setGenero(char genero) {
+        if (genero != 'M' && genero != 'F') {
+            throw new IllegalArgumentException("El género es incorreto");
+        }
+        
         this.genero = genero;
     }
 
