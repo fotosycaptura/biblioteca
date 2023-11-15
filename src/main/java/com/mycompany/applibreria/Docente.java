@@ -7,6 +7,13 @@ package com.mycompany.applibreria;
 /**
  *
  * @author Tom
+ * Clase entregada para trabajar en ella por el profesor
+ * Modificado por integrantes del grupo 2:
+ * Xavier Fuentes
+ * Carlos Anch
+ * Felipe González
+ * Sebastian Lantadilla
+ * Ivan Rojas
  */
 public class Docente extends Usuario {
     private String gradoAcademico;
@@ -27,7 +34,12 @@ public class Docente extends Usuario {
      * @param gradoAcademico the gradoAcademico to set
      */
     public void setGradoAcademico(String gradoAcademico) {
-        this.gradoAcademico = gradoAcademico;
+        if (gradoAcademico != null && gradoAcademico.length() > 0){
+            this.gradoAcademico = gradoAcademico;
+        }else{
+            throw new IllegalArgumentException("ERROR: Debe de ingresar un grado académico."); 
+        }
+        
     }
 
     /**
@@ -41,7 +53,13 @@ public class Docente extends Usuario {
      * @param profesion the profesion to set
      */
     public void setProfesion(String profesion) {
-        this.profesion = profesion;
+        if (profesion != null && profesion.length() > 0){
+            this.profesion = profesion;
+        }
+        else{
+            throw new IllegalArgumentException("ERROR: Debe de ingresar una profesión."); 
+        }
+        
     }
     
     /**
