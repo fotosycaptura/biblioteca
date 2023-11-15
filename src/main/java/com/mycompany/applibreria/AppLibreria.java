@@ -18,12 +18,12 @@ public class AppLibreria {
         // GENERAMOS DATOS DE USUARIOS BASE
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>(
                 Arrays.asList(
-                        new Docente("1-1"),
-                        new Docente("1-2"),
-                        new Docente("1-3"),
-                        new Estudiante("2-1"),
-                        new Estudiante("2-2"),
-                        new Estudiante("2-3")
+                        new Docente("11111111-1"),
+                        new Docente("22222222-2"),
+                        new Docente("33333333-3"),
+                        new Estudiante("44444444-4"),
+                        new Estudiante("55555555-5"),
+                        new Estudiante("66666666-6")
                 )
         );
         // GENERAMOS DATOS DE LIBROS BASE
@@ -39,13 +39,13 @@ public class AppLibreria {
         // UN ARREGLO DE DEVOLUCIONES
         ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
         // GENERAMOS UN PRÉSTAMO
-        Prestamo prestamo = Prestamo.ingresarPrestamo(1, "1-2", libros, usuarios);
+        Prestamo prestamo = Prestamo.ingresarPrestamo(1, "11111111-1", libros, usuarios);
         // AGREGAMOS EL PRÉTAMO AL ARREGLO DE PRÉSTAMOS
         prestamos.add(prestamo);
         // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
         System.out.println(prestamo.toString());
         // GENERAMOS UNA DEVOLUCION
-        Prestamo.ingresarDevolucion(1, "1-2", prestamos);
+        Prestamo.ingresarDevolucion(1, "11111111-1", prestamos);
         System.out.println("-----------------------------------------------------------");
         // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
         System.out.println(prestamo.toString());
