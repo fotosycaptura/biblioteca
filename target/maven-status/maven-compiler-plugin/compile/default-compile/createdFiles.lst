@@ -1,6 +1,7 @@
 com\mycompany\applibreria\Devolucion.class
 com\mycompany\applibreria\Libro.class
 com\mycompany\applibreria\Usuario.class
+com\mycompany\mavenproject1\Libro.class
 com\mycompany\applibreria\Prestamo.class
 com\mycompany\applibreria\Docente.class
 com\mycompany\applibreria\Estudiante.class
