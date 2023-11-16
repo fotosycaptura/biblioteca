@@ -29,6 +29,7 @@ public abstract class Usuario {
      * @param usuarios 
      */
     public Usuario(String RUN, String nombre, char genero, ArrayList<Usuario> usuarios) {
+        //Se busca ese rut en el ArrayList de usuarios
         if (encontrarUsuario(RUN, usuarios)){
             throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
         }
@@ -87,49 +88,6 @@ public abstract class Usuario {
     }
     
     /**
-     * Se encarga de obtener el dígito verificador de un rut.
-     * Se utiliza para obtenerlo - generarlo - o para la comparación en un if
-     * @param rut
-     * @return 
-     */
-    private String ValidarDigitoVerificador(int rut)
-        {
-            int Digito;
-            int Contador;
-            int Multiplo;
-            int Acumulador;
-            String RutDigito;
-            
-            Contador = 2;
-            Acumulador = 0;
-
-            while (rut != 0)
-            {
-                Multiplo = (rut % 10) * Contador;
-                Acumulador = Acumulador + Multiplo;
-                rut = rut / 10;
-                Contador = Contador + 1;
-                if (Contador == 8)
-                {
-                    Contador = 2;
-                }
-            }
-
-            Digito = 11 - (Acumulador % 11);
-            RutDigito = Integer.toString(Digito);
-            if (Digito == 10)
-            {
-                RutDigito = "K";
-            }
-            if (Digito == 11)
-            {
-                RutDigito = "0";
-            }
-            return (RutDigito);
-        }
-
-    
-    /**
      * @return the nombre
      */
     public String getNombre() {
@@ -172,6 +130,19 @@ public abstract class Usuario {
     public int getLibroPrestamo() {
         return libroPrestamo;
     }
+    
+    /**
+     * @param libroPrestamo the libroPrestamo to set
+     * Se setea un libro si es que libroPrestamo está en 0
+     */
+    public void setLibroPrestamo(int libroPrestamo) {
+        if (getLibroPrestamo() != 0){
+            throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
+        }
+        
+        this.libroPrestamo = libroPrestamo;
+    }
+    
     /**
      * Método encargado de validar la existencia de un RUN en un ArrayList de usuarios.
      * Si el RUN es encontrado, retornará true
@@ -189,15 +160,46 @@ public abstract class Usuario {
     }
 
     /**
-     * @param libroPrestamo the libroPrestamo to set
-     * Se setea un libro si es que libroPrestamo está en 0
+     * Se encarga de obtener el dígito verificador de un rut.
+     * Se utiliza para obtenerlo - generarlo - o para la comparación en un if
+     * @param rut
+     * @return 
      */
-    public void setLibroPrestamo(int libroPrestamo) {
-        if (getLibroPrestamo() != 0){
-            throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
+    private String ValidarDigitoVerificador(int rut)
+        {
+            int Digito;
+            int Contador;
+            int Multiplo;
+            int Acumulador;
+            String RutDigito;
+            
+            Contador = 2;
+            Acumulador = 0;
+
+            while (rut != 0)
+            {
+                Multiplo = (rut % 10) * Contador;
+                Acumulador = Acumulador + Multiplo;
+                rut = rut / 10;
+                Contador = Contador + 1;
+                if (Contador == 8)
+                {
+                    Contador = 2;
+                }
+            }
+
+            Digito = 11 - (Acumulador % 11);
+            RutDigito = Integer.toString(Digito);
+            if (Digito == 10)
+            {
+                RutDigito = "K";
+            }
+            if (Digito == 11)
+            {
+                RutDigito = "0";
+            }
+            return (RutDigito);
         }
-        
-        this.libroPrestamo = libroPrestamo;
-    }
+    
     
 }
