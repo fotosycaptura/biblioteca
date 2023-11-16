@@ -21,6 +21,7 @@ import java.util.Arrays;
  */
 public class AppLibreria {
 
+    
     public static void main(String[] args) {
         // GENERAMOS DATOS DE USUARIOS BASE
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
@@ -32,6 +33,13 @@ public class AppLibreria {
         usuarios.add(new Estudiante("55555555-5", "Andrea Tesa", 'F', "Matricería", usuarios));
         usuarios.add(new Estudiante("66666666-6", "Jessie Janes", 'F', "Administración de Empresa", usuarios));
         
+        //Se editan los atributos básicos del usuario
+        usuarios.get(0).editarUsuario("77777777-7", "Jacinto", 'M');
+        
+        //Se muestran los datos del usuario editado
+        System.out.println(usuarios.get(0));
+        
+        usuarios.get(0).editarUsuario("11111111-1", "Jacinto", 'M');
         // GENERAMOS DATOS DE LIBROS BASE
         ArrayList<Libro> libros = new ArrayList<Libro>(
                 Arrays.asList(

@@ -22,8 +22,10 @@ public abstract class Usuario {
     private int libroPrestamo;
     
     /**
-     * Método Constructor
+     * Constructor. Que hará las veces también de "Crear Usuario"
      * @param RUN
+     * @param nombre
+     * @param genero
      * @param usuarios 
      */
     public Usuario(String RUN, String nombre, char genero, ArrayList<Usuario> usuarios) {
@@ -31,6 +33,18 @@ public abstract class Usuario {
             throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
         }
         
+        setRUN(RUN);
+        setNombre(nombre);
+        setGenero(genero);
+    }
+    
+    /**
+     * Método encargado de editar el usuario
+     * @param RUN
+     * @param nombre
+     * @param genero 
+     */
+    public void editarUsuario(String RUN, String nombre, char genero){
         setRUN(RUN);
         setNombre(nombre);
         setGenero(genero);
