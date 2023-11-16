@@ -4,6 +4,8 @@
  */
 package com.mycompany.applibreria;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -19,8 +21,8 @@ public class Docente extends Usuario {
     private String gradoAcademico;
     private String profesion;
     
-    public Docente(String RUN) {
-        super(RUN);
+    public Docente(String RUN, ArrayList<Usuario> usuarios) {
+        super(RUN, usuarios);
     }
     
     /**

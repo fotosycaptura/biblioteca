@@ -4,6 +4,8 @@
  */
 package com.mycompany.applibreria;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -18,8 +20,8 @@ package com.mycompany.applibreria;
 public class Estudiante extends Usuario {
     private String carrera;
     // GENERAMOS DATOS DE USUARIOS BASE
-    public Estudiante(String RUN) {
-        super(RUN);
+    public Estudiante(String RUN, ArrayList<Usuario> usuarios) {
+        super(RUN, usuarios);
     }
     
     /**

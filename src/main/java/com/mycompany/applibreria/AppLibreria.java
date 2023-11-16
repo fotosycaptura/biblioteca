@@ -23,16 +23,14 @@ public class AppLibreria {
 
     public static void main(String[] args) {
         // GENERAMOS DATOS DE USUARIOS BASE
-        ArrayList<Usuario> usuarios = new ArrayList<Usuario>(
-                Arrays.asList(
-                        new Docente("11111111-1"),
-                        new Docente("22222222-2"),
-                        new Docente("33333333-3"),
-                        new Estudiante("44444444-4"),
-                        new Estudiante("55555555-5"),
-                        new Estudiante("66666666-6")
-                )
-        );
+        ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
+        usuarios.add(new Docente("11111111-1", usuarios));
+        usuarios.add(new Docente("22222222-2", usuarios));
+        usuarios.add(new Docente("33333333-3", usuarios));
+        usuarios.add(new Estudiante("44444444-4", usuarios));
+        usuarios.add(new Estudiante("55555555-5", usuarios));
+        usuarios.add(new Estudiante("66666666-6", usuarios));
+        
         // GENERAMOS DATOS DE LIBROS BASE
         ArrayList<Libro> libros = new ArrayList<Libro>(
                 Arrays.asList(

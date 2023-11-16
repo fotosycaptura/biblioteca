@@ -4,6 +4,7 @@
  */
 package com.mycompany.applibreria;
 import java.util.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +21,11 @@ public abstract class Usuario {
     //Tiene un número mayor a 0, no se le podrá prestar libros
     private int libroPrestamo;
     
-    public Usuario(String RUN) {
+    public Usuario(String RUN, ArrayList<Usuario> usuarios) {
+        if (encontrarUsuario(RUN, usuarios)){
+            throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
+        }
+        
         setRUN(RUN);
     }
     
@@ -145,6 +150,21 @@ public abstract class Usuario {
      */
     public int getLibroPrestamo() {
         return libroPrestamo;
+    }
+    /**
+     * Método encargado de validar la existencia de un RUN en un ArrayList de usuarios.
+     * Si el RUN es encontrado, retornará true
+     * @param RUN
+     * @param usuarios
+     * @return 
+     */
+    public static Boolean encontrarUsuario(String RUN, ArrayList<Usuario> usuarios){
+        for (Usuario usuario: usuarios){
+            if (usuario.getRUN().equals(RUN)){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
