@@ -21,8 +21,10 @@ public class Docente extends Usuario {
     private String gradoAcademico;
     private String profesion;
     
-    public Docente(String RUN, ArrayList<Usuario> usuarios) {
-        super(RUN, usuarios);
+    public Docente(String RUN, String nombre, char genero, String profesion, String gradoAcademico, ArrayList<Usuario> usuarios) {
+        super(RUN, nombre, genero, usuarios);
+        setProfesion(profesion);
+        setGradoAcademico(gradoAcademico);
     }
     
     /**

@@ -21,12 +21,33 @@ public abstract class Usuario {
     //Tiene un número mayor a 0, no se le podrá prestar libros
     private int libroPrestamo;
     
-    public Usuario(String RUN, ArrayList<Usuario> usuarios) {
+    /**
+     * Constructor. Que hará las veces también de "Crear Usuario"
+     * @param RUN
+     * @param nombre
+     * @param genero
+     * @param usuarios 
+     */
+    public Usuario(String RUN, String nombre, char genero, ArrayList<Usuario> usuarios) {
         if (encontrarUsuario(RUN, usuarios)){
             throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
         }
         
         setRUN(RUN);
+        setNombre(nombre);
+        setGenero(genero);
+    }
+    
+    /**
+     * Método encargado de editar el usuario
+     * @param RUN
+     * @param nombre
+     * @param genero 
+     */
+    public void editarUsuario(String RUN, String nombre, char genero){
+        setRUN(RUN);
+        setNombre(nombre);
+        setGenero(genero);
     }
     
     /**
