@@ -21,12 +21,34 @@ public abstract class Usuario {
     //Tiene un número mayor a 0, no se le podrá prestar libros
     private int libroPrestamo;
     
-    public Usuario(String RUN, ArrayList<Usuario> usuarios) {
+    /**
+     * Constructor. Que hará las veces también de "Crear Usuario"
+     * @param RUN
+     * @param nombre
+     * @param genero
+     * @param usuarios 
+     */
+    public Usuario(String RUN, String nombre, char genero, ArrayList<Usuario> usuarios) {
+        //Se busca ese rut en el ArrayList de usuarios
         if (encontrarUsuario(RUN, usuarios)){
             throw new IllegalArgumentException("El usuario que intenga ingresar ya existe");
         }
         
         setRUN(RUN);
+        setNombre(nombre);
+        setGenero(genero);
+    }
+    
+    /**
+     * Método encargado de editar el usuario
+     * @param RUN
+     * @param nombre
+     * @param genero 
+     */
+    public void editarUsuario(String RUN, String nombre, char genero){
+        setRUN(RUN);
+        setNombre(nombre);
+        setGenero(genero);
     }
     
     /**
@@ -64,49 +86,6 @@ public abstract class Usuario {
              throw new IllegalArgumentException("Cédula de cliente inválida. No posee el largo de 10 caracteres");
         }
     }
-    
-    /**
-     * Se encarga de obtener el dígito verificador de un rut.
-     * Se utiliza para obtenerlo - generarlo - o para la comparación en un if
-     * @param rut
-     * @return 
-     */
-    private String ValidarDigitoVerificador(int rut)
-        {
-            int Digito;
-            int Contador;
-            int Multiplo;
-            int Acumulador;
-            String RutDigito;
-            
-            Contador = 2;
-            Acumulador = 0;
-
-            while (rut != 0)
-            {
-                Multiplo = (rut % 10) * Contador;
-                Acumulador = Acumulador + Multiplo;
-                rut = rut / 10;
-                Contador = Contador + 1;
-                if (Contador == 8)
-                {
-                    Contador = 2;
-                }
-            }
-
-            Digito = 11 - (Acumulador % 11);
-            RutDigito = Integer.toString(Digito);
-            if (Digito == 10)
-            {
-                RutDigito = "K";
-            }
-            if (Digito == 11)
-            {
-                RutDigito = "0";
-            }
-            return (RutDigito);
-        }
-
     
     /**
      * @return the nombre
@@ -151,6 +130,19 @@ public abstract class Usuario {
     public int getLibroPrestamo() {
         return libroPrestamo;
     }
+    
+    /**
+     * @param libroPrestamo the libroPrestamo to set
+     * Se setea un libro si es que libroPrestamo está en 0
+     */
+    public void setLibroPrestamo(int libroPrestamo) {
+        if (getLibroPrestamo() != 0){
+            throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
+        }
+        
+        this.libroPrestamo = libroPrestamo;
+    }
+    
     /**
      * Método encargado de validar la existencia de un RUN en un ArrayList de usuarios.
      * Si el RUN es encontrado, retornará true
@@ -168,15 +160,71 @@ public abstract class Usuario {
     }
 
     /**
-     * @param libroPrestamo the libroPrestamo to set
-     * Se setea un libro si es que libroPrestamo está en 0
+     * Se encarga de obtener el dígito verificador de un rut.
+     * Se utiliza para obtenerlo - generarlo - o para la comparación en un if
+     * @param rut
+     * @return 
      */
-    public void setLibroPrestamo(int libroPrestamo) {
-        if (getLibroPrestamo() != 0){
-            throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
+    private String ValidarDigitoVerificador(int rut)
+    {
+        int Digito;
+        int Contador;
+        int Multiplo;
+        int Acumulador;
+        String RutDigito;
+
+        Contador = 2;
+        Acumulador = 0;
+
+        while (rut != 0)
+        {
+            Multiplo = (rut % 10) * Contador;
+            Acumulador = Acumulador + Multiplo;
+            rut = rut / 10;
+            Contador = Contador + 1;
+            if (Contador == 8)
+            {
+                Contador = 2;
+            }
+        }
+
+        Digito = 11 - (Acumulador % 11);
+        RutDigito = Integer.toString(Digito);
+        if (Digito == 10)
+        {
+            RutDigito = "K";
+        }
+        if (Digito == 11)
+        {
+            RutDigito = "0";
+        }
+        return (RutDigito);
+    }
+    
+    /**
+     * Método que elimina un usuario de un ArrayList. 
+     * Busca por intermedio del RUN para verificar que exista, y en caso de
+     * ser encontrado, se elimina del ArrayList, retornando true
+     * En caso de no ser encontrado, retorna false
+     * @param RUN
+     * @param usuarios
+     * @return 
+     */
+    public static Boolean eliminar(String RUN, ArrayList<Usuario> usuarios){
+        int indice = -1;
+        for (int i=0; i < usuarios.size(); i++){
+            if (usuarios.get(i).getRUN().equals(RUN)){
+                indice = i;
+                break;
+            }
         }
         
-        this.libroPrestamo = libroPrestamo;
+        if (indice >= 0){
+            usuarios.remove(indice);
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }
