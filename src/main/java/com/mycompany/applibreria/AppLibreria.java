@@ -23,9 +23,10 @@ public class AppLibreria {
 
     
     public static void main(String[] args) {
-        // GENERAMOS DATOS DE USUARIOS BASE
+        //Se genera una lista de usuarios
         ArrayList<Usuario> usuarios = new ArrayList<Usuario>();
         
+        //Se crean y agregan los usuarios nuevos al ArrayList
         usuarios.add(new Docente("11111111-1", "José Jirafales", 'M', "Matemático", "Magíster", usuarios));
         usuarios.add(new Docente("22222222-2", "Juan Pradenas", 'M', "Físico", "Doctor", usuarios));
         usuarios.add(new Docente("33333333-3", "Jhon Smith", 'M', "Ingeniero Metalúrgico", "Enlatado", usuarios));
@@ -33,13 +34,21 @@ public class AppLibreria {
         usuarios.add(new Estudiante("55555555-5", "Andrea Tesa", 'F', "Matricería", usuarios));
         usuarios.add(new Estudiante("66666666-6", "Jessie Janes", 'F', "Administración de Empresa", usuarios));
         
-        //Se editan los atributos básicos del usuario
-        usuarios.get(0).editarUsuario("77777777-7", "Jacinto", 'M');
+        //Se editan los atributos básicos del usuario que se piden que se validen
+        System.out.println("Se edita primer usuario ingresado.");
+        usuarios.get(0).editarUsuario("77777777-7", "Jeanette Rosas", 'F');
         
         //Se muestran los datos del usuario editado
-        System.out.println(usuarios.get(0));
+        System.out.println("Datos del usuario editado: " + usuarios.get(0));
         
-        usuarios.get(0).editarUsuario("11111111-1", "Jacinto", 'M');
+        System.out.println("Se editan nuevamente los datos del primer usuario ingresado para restaurarlos.");
+        //Se editan/restauran los datos básicos originales
+        usuarios.get(0).editarUsuario("11111111-1", "José Jirafales", 'M');
+        
+        //Se vuelve a desplegar para corroborar los datos editados
+        System.out.println("Datos del usuario: " + usuarios.get(0));
+        System.out.println("");
+        
         // GENERAMOS DATOS DE LIBROS BASE
         ArrayList<Libro> libros = new ArrayList<Libro>(
                 Arrays.asList(
