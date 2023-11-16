@@ -4,15 +4,24 @@
  */
 package com.mycompany.applibreria;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
+ * Clase entregada para trabajar en ella por el profesor
+ * Modificado por integrantes del grupo 2:
+ * Xavier Fuentes
+ * Carlos Anch
+ * Felipe González
+ * Sebastian Lantadilla
+ * Ivan Rojas
  */
 public class Estudiante extends Usuario {
     private String carrera;
     // GENERAMOS DATOS DE USUARIOS BASE
-    public Estudiante(String RUN) {
-        super(RUN);
+    public Estudiante(String RUN, ArrayList<Usuario> usuarios) {
+        super(RUN, usuarios);
     }
     
     /**
