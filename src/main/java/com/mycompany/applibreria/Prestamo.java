@@ -182,7 +182,7 @@ public class Prestamo {
             Usuario usuario = usuarios.get(i);
             
             // PREGUNTO SI EL RUT DEL USUARIO ES IGUAL AL RUN QUE BUSCO
-            if (usuario.getRUN() == RUN) {
+            if (usuario.getRUN().equals(RUN)) {
                 // SI LO ENCUENTRO, LO RETORNO
                 return usuario;
             }
