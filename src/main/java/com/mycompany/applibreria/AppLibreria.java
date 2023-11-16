@@ -34,29 +34,35 @@ public class AppLibreria {
         usuarios.add(new Estudiante("55555555-5", "Andrea Tesa", 'F', "Matricería", usuarios));
         usuarios.add(new Estudiante("66666666-6", "Jessie Janes", 'F', "Administración de Empresa", usuarios));
         
-        //Se editan los atributos básicos del usuario que se piden que se validen
+        //Se editan los datos de un docente que ya existe.
         System.out.println("Se edita primer usuario ingresado.");
-        usuarios.get(0).editarUsuario("77777777-7", "Jeanette Rosas", 'F');
+        Docente docAModifi = new Docente("77777777-7", "Jeanette Rosas", 'F', "Docente", "Magíster", usuarios);
+        
+        if (Usuario.editarUsuario("11111111-1", docAModifi, usuarios)){
+            System.out.println("Usuario editado correctamente.");
+        }else{
+            System.out.println("Usuario no encontrado. No se pudo editar el usuario.");
+        }
         
         //Se muestran los datos del usuario editado
-        System.out.println("Datos del usuario editado: " + usuarios.get(0));
+        System.out.println("Datos del usuario editado: " + Usuario.verUsuario(docAModifi.getRUN(), usuarios));
         
         System.out.println("Se editan nuevamente los datos del primer usuario ingresado para restaurarlos.");
+        
         //Se editan/restauran los datos básicos originales
-        usuarios.get(0).editarUsuario("11111111-1", "José Jirafales", 'M');
+        docAModifi = new Docente("11111111-1", "José Jirafales", 'M', "Matemático", "Magíster", usuarios);
+        
+        if (Usuario.editarUsuario("77777777-7", docAModifi, usuarios)){
+            System.out.println("Usuario editado correctamente.");
+        }else{
+            System.out.println("Usuario no encontrado. No se pudo editar el usuario.");
+        }
         
         //Se vuelve a desplegar para corroborar los datos editados
-        System.out.println("Datos del usuario: " + usuarios.get(0));
+        System.out.println("Datos del usuario nuevamente editado: " + Usuario.verUsuario(docAModifi.getRUN(), usuarios));
         System.out.println("");
-        
-        /**
-         * Se elimina un usuario, en realidad hay más de una manera para eliminar el usuario
-         * Se puede eliminar del ArrayList directamente con remove. 
-         * También se le puede pasar el ArrayList a un método de alguna clase y que se elimine desde ahí
-         * 
-         * No se especifica que manera usar, así que se realizará a través de un método estático
-         */
-        
+        System.out.println("Se intenta eliminar un usuario...");
+        //Sección de eliminar usuario, si es que existe        
         if (Usuario.eliminar("88888888-8", usuarios)){
             System.out.println("Se eliminó el usuario.");
         }else{

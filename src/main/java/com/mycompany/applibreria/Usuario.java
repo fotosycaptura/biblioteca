@@ -39,16 +39,34 @@ public abstract class Usuario {
         setGenero(genero);
     }
     
-    /**
-     * Método encargado de editar el usuario
-     * @param RUN
-     * @param nombre
-     * @param genero 
-     */
-    public void editarUsuario(String RUN, String nombre, char genero){
-        setRUN(RUN);
-        setNombre(nombre);
-        setGenero(genero);
+   /**
+    * Método encargado de editar el usuario
+    * @param RUN
+    * @param usuario
+    * @param usuarios
+    * @return 
+    */
+    public static Boolean editarUsuario(String RUN, Usuario usuario, ArrayList<Usuario> usuarios){
+        int indice = -1;
+        for (int i=0; i < usuarios.size(); i++){
+            if (usuarios.get(i).getRUN().equals(RUN)){
+                indice = i;
+                break;
+            }
+        }
+        
+        if (indice >= 0){
+            //Se extrae el elemento del ArrayList
+            Usuario usuarioAModificar = (Usuario)usuarios.get(indice);
+            
+            //Se establecen los valores los valores
+            usuarioAModificar.setRUN(usuario.getRUN());
+            usuarioAModificar.setNombre(usuario.getNombre());
+            usuarioAModificar.setGenero(usuario.getGenero());
+            return true;
+        }else{
+            return false;
+        }
     }
     
     /**
@@ -225,6 +243,21 @@ public abstract class Usuario {
         }else{
             return false;
         }
+    }
+    
+    /**
+     * Método que obtiene un usuario dado el RUN especificado
+     * @param RUN
+     * @param usuarios
+     * @return 
+     */
+    public static Usuario verUsuario(String RUN, ArrayList<Usuario> usuarios){
+        for (Usuario usuario: usuarios){
+            if (usuario.getRUN().equals(RUN)){
+                return usuario;
+            }
+        }
+        return null;
     }
     
 }
