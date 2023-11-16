@@ -20,8 +20,9 @@ import java.util.ArrayList;
 public class Estudiante extends Usuario {
     private String carrera;
     // GENERAMOS DATOS DE USUARIOS BASE
-    public Estudiante(String RUN, ArrayList<Usuario> usuarios) {
-        super(RUN, usuarios);
+    public Estudiante(String RUN, String nombre, char genero, String carrera, ArrayList<Usuario> usuarios) {
+        super(RUN, nombre, genero, usuarios);
+        setCarrera(carrera);
     }
     
     /**
