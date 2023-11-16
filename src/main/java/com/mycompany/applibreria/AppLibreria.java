@@ -49,6 +49,22 @@ public class AppLibreria {
         System.out.println("Datos del usuario: " + usuarios.get(0));
         System.out.println("");
         
+        /**
+         * Se elimina un usuario, en realidad hay más de una manera para eliminar el usuario
+         * Se puede eliminar del ArrayList directamente con remove. 
+         * También se le puede pasar el ArrayList a un método de alguna clase y que se elimine desde ahí
+         * 
+         * No se especifica que manera usar, así que se realizará a través de un método estático
+         */
+        
+        if (Usuario.eliminar("88888888-8", usuarios)){
+            System.out.println("Se eliminó el usuario.");
+        }else{
+            System.out.println("No pudo ser eliminado. Usuario no encontrado.");
+        }
+
+        System.out.println("");
+        
         // GENERAMOS DATOS DE LIBROS BASE
         ArrayList<Libro> libros = new ArrayList<Libro>(
                 Arrays.asList(

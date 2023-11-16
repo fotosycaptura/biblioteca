@@ -166,40 +166,65 @@ public abstract class Usuario {
      * @return 
      */
     private String ValidarDigitoVerificador(int rut)
+    {
+        int Digito;
+        int Contador;
+        int Multiplo;
+        int Acumulador;
+        String RutDigito;
+
+        Contador = 2;
+        Acumulador = 0;
+
+        while (rut != 0)
         {
-            int Digito;
-            int Contador;
-            int Multiplo;
-            int Acumulador;
-            String RutDigito;
-            
-            Contador = 2;
-            Acumulador = 0;
-
-            while (rut != 0)
+            Multiplo = (rut % 10) * Contador;
+            Acumulador = Acumulador + Multiplo;
+            rut = rut / 10;
+            Contador = Contador + 1;
+            if (Contador == 8)
             {
-                Multiplo = (rut % 10) * Contador;
-                Acumulador = Acumulador + Multiplo;
-                rut = rut / 10;
-                Contador = Contador + 1;
-                if (Contador == 8)
-                {
-                    Contador = 2;
-                }
+                Contador = 2;
             }
-
-            Digito = 11 - (Acumulador % 11);
-            RutDigito = Integer.toString(Digito);
-            if (Digito == 10)
-            {
-                RutDigito = "K";
-            }
-            if (Digito == 11)
-            {
-                RutDigito = "0";
-            }
-            return (RutDigito);
         }
+
+        Digito = 11 - (Acumulador % 11);
+        RutDigito = Integer.toString(Digito);
+        if (Digito == 10)
+        {
+            RutDigito = "K";
+        }
+        if (Digito == 11)
+        {
+            RutDigito = "0";
+        }
+        return (RutDigito);
+    }
     
+    /**
+     * Método que elimina un usuario de un ArrayList. 
+     * Busca por intermedio del RUN para verificar que exista, y en caso de
+     * ser encontrado, se elimina del ArrayList, retornando true
+     * En caso de no ser encontrado, retorna false
+     * @param RUN
+     * @param usuarios
+     * @return 
+     */
+    public static Boolean eliminar(String RUN, ArrayList<Usuario> usuarios){
+        int indice = -1;
+        for (int i=0; i < usuarios.size(); i++){
+            if (usuarios.get(i).getRUN().equals(RUN)){
+                indice = i;
+                break;
+            }
+        }
+        
+        if (indice >= 0){
+            usuarios.remove(indice);
+            return true;
+        }else{
+            return false;
+        }
+    }
     
 }
