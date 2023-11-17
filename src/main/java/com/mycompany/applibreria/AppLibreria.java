@@ -72,15 +72,23 @@ public class AppLibreria {
         System.out.println("");
         
         // GENERAMOS DATOS DE LIBROS BASE
-        ArrayList<Libro> libros = new ArrayList<Libro>(
-                Arrays.asList(
-                        new Libro(1),
-                        new Libro(2),
-                        new Libro(3),
-                        new Libro(4),
-                        new Libro(5)
-                )
-        );
+        ArrayList<Libro> libros = new ArrayList<Libro>();
+        libros.add(new Libro(1, "El señor de los anillos", "Tolkien", 10, 5, "portada01.jpg", libros));
+        libros.add(new Libro(2, "Las dos torres", "Tolkien", 10, 5, "portada02.jpg", libros));
+        libros.add(new Libro(3, "El retorno del rey", "Tolkien", 10, 5, "portada03.jpg", libros));
+        libros.add(new Libro(4, "El Hobbit", "Tolkien", 10, 5, "portada04.jpg", libros));
+        libros.add(new Libro(5, "Sir Marilión", "Tolkien", 10, 5, "portada05.jpg", libros));
+        
+        System.out.println("Libros existentes en la biblioteca en total: " + libros.size());
+        //Se elimina un libro
+        if (Libro.eliminar(5, libros)){
+            System.out.println("Libro eliminado exitosamente");
+        }else{
+            System.out.println("Libro no pudo ser eliminado");
+        }
+        
+        System.out.println("Libros existentes en la biblioteca en total: " + libros.size());
+        
         // UN ARREGLO DE DEVOLUCIONES
         ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
         // GENERAMOS UN PRÉSTAMO
