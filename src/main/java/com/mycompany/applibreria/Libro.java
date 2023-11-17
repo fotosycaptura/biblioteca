@@ -109,7 +109,12 @@ public class Libro {
      * @param autor the autor to set
      */
     public void setAutor(String autor) {
-        this.autor = autor;
+        if (autor != null && autor.length() > 0){
+            this.autor = autor;
+        }else{
+            throw new IllegalArgumentException("El autor no puede estar nulo. Debe ingresar un autor!");
+        }
+        
     }
     
     /**
@@ -119,7 +124,7 @@ public class Libro {
     public String toString() {
         return "ISGN: " + getISBN() + "\t" +
                 "Título: " + getTitulo() + "\t" +
-                "Carrera: " + getCarrera() + "\t";
+                "Carrera: " + getAutor() + "\t";
     }
 
     
