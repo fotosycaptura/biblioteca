@@ -7,10 +7,18 @@ package com.mycompany.applibreria;
 /**
  *
  * @author Tom
+ * Clase entregada para trabajar en ella por el profesor
+ * Modificado por integrantes del grupo 2:
+ * Xavier Fuentes
+ * Carlos Anch
+ * Felipe González
+ * Sebastian Lantadilla
+ * Ivan Rojas
  */
 public class Libro {
     private int ISBN;
     private String titulo;
+    private String autor;
     private int cantidadDisponibleBiblioteca;
     private int cantidadDisponiblePrestamo;
     private String imagen;
@@ -89,4 +97,30 @@ public class Libro {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+    
+    /**
+     * Sobreescribe el método toString para desplegar valores personalizados.
+     */
+    @Override
+    public String toString() {
+        return "ISGN: " + getISBN() + "\t" +
+                "Título: " + getTitulo() + "\t" +
+                "Carrera: " + getCarrera() + "\t";
+    }
+
+    
 }
