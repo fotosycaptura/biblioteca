@@ -107,6 +107,15 @@ public class Libro {
      * @param cantidadDisponiblePrestamo the cantidadDisponiblePrestamo to set
      */
     public void setCantidadDisponiblePrestamo(int cantidadDisponiblePrestamo) {
+        
+        if (cantidadDisponiblePrestamo <= 0){
+            throw new IllegalArgumentException("Debe ingresar un valor mayor que cero.");
+        }
+        
+        if (cantidadDisponiblePrestamo > getCantidadDisponibleBiblioteca()){
+            throw new IllegalArgumentException("Debe ingresar una cantidad razonable con respecto a la disponible en biblioteca.");
+        }
+        
         this.cantidadDisponiblePrestamo = cantidadDisponiblePrestamo;
     }
 
@@ -141,6 +150,30 @@ public class Libro {
             throw new IllegalArgumentException("El autor no puede estar nulo. Debe ingresar un autor!");
         }
         
+    }
+    /**
+     * Método encargado de eliminar un libro del ArrayList de libros
+     * Dado un ISBN. Si la operación se lleva a cabo exitosamente, retorna true
+     * En caso contrario, false
+     * @param ISBN
+     * @param libros
+     * @return Boolean
+     */
+    public static Boolean eliminar(int ISBN, ArrayList<Libro> libros){
+        int indice = -1;
+        for (int i=0; i < libros.size(); i++){
+            if (libros.get(i).getISBN() == ISBN){
+                indice = i;
+                break;
+            }
+        }
+        
+        if (indice >= 0){
+            libros.remove(indice);
+            return true;
+        }else{
+            return false;
+        }
     }
     
     /**
