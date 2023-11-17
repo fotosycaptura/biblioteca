@@ -4,20 +4,41 @@
  */
 package com.mycompany.applibreria;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
+ * Clase entregada para trabajar en ella por el profesor
+ * Modificado por integrantes del grupo 2:
+ * Xavier Fuentes
+ * Carlos Anch
+ * Felipe González
+ * Sebastian Lantadilla
+ * Ivan Rojas
  */
 public class Libro {
     private int ISBN;
     private String titulo;
+    private String autor;
     private int cantidadDisponibleBiblioteca;
     private int cantidadDisponiblePrestamo;
     private String imagen;
     
-    // DEBE COMPLETAR ESTE CONSTRUCTOR
-    public Libro(int ISBN) {
-        setISBN(ISBN);
+    /**
+     * Constructor. Que hará las veces también de "Crear Libro"
+     */
+    public Libro(int ISBN, String titulo, String autor, int copiasDisponibles, int copiasParaPrestamo, String portada, ArrayList<Libro> libros) {
+        if (!encontrarLibro(ISBN, libros)){
+            setISBN(ISBN);
+            setTitulo(titulo);
+            setAutor(autor);
+            setCantidadDisponibleBiblioteca(copiasDisponibles);
+            setCantidadDisponiblePrestamo(copiasParaPrestamo);
+            setImagen(portada);
+        }else{
+            throw new IllegalArgumentException("Este ISBN del libro ya existe! Abortando...");
+        }
     }
     
     /**
@@ -32,6 +53,15 @@ public class Libro {
      */
     public void setISBN(int ISBN) {
         this.ISBN = ISBN;
+    }
+    
+    public static Boolean encontrarLibro(int ISBN, ArrayList<Libro> libros){
+        for (Libro libro: libros){
+            if (libro.getISBN() == ISBN){
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -59,6 +89,10 @@ public class Libro {
      * @param cantidadDisponibleBiblioteca the cantidadDisponibleBiblioteca to set
      */
     public void setCantidadDisponibleBiblioteca(int cantidadDisponibleBiblioteca) {
+        if (cantidadDisponibleBiblioteca <= 0){
+            throw new IllegalArgumentException("Debe ingresar un valor mayor que cero.");
+        }
+        
         this.cantidadDisponibleBiblioteca = cantidadDisponibleBiblioteca;
     }
 
@@ -73,6 +107,15 @@ public class Libro {
      * @param cantidadDisponiblePrestamo the cantidadDisponiblePrestamo to set
      */
     public void setCantidadDisponiblePrestamo(int cantidadDisponiblePrestamo) {
+        
+        if (cantidadDisponiblePrestamo <= 0){
+            throw new IllegalArgumentException("Debe ingresar un valor mayor que cero.");
+        }
+        
+        if (cantidadDisponiblePrestamo > getCantidadDisponibleBiblioteca()){
+            throw new IllegalArgumentException("Debe ingresar una cantidad razonable con respecto a la disponible en biblioteca.");
+        }
+        
         this.cantidadDisponiblePrestamo = cantidadDisponiblePrestamo;
     }
 
@@ -89,4 +132,59 @@ public class Libro {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+    
+    /**
+     * @return the autor
+     */
+    public String getAutor() {
+        return autor;
+    }
+
+    /**
+     * @param autor the autor to set
+     */
+    public void setAutor(String autor) {
+        if (autor != null && autor.length() > 0){
+            this.autor = autor;
+        }else{
+            throw new IllegalArgumentException("El autor no puede estar nulo. Debe ingresar un autor!");
+        }
+        
+    }
+    /**
+     * Método encargado de eliminar un libro del ArrayList de libros
+     * Dado un ISBN. Si la operación se lleva a cabo exitosamente, retorna true
+     * En caso contrario, false
+     * @param ISBN
+     * @param libros
+     * @return Boolean
+     */
+    public static Boolean eliminar(int ISBN, ArrayList<Libro> libros){
+        int indice = -1;
+        for (int i=0; i < libros.size(); i++){
+            if (libros.get(i).getISBN() == ISBN){
+                indice = i;
+                break;
+            }
+        }
+        
+        if (indice >= 0){
+            libros.remove(indice);
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /**
+     * Sobreescribe el método toString para desplegar valores personalizados.
+     */
+    @Override
+    public String toString() {
+        return "ISGN: " + getISBN() + "\t" +
+                "Título: " + getTitulo() + "\t" +
+                "Carrera: " + getAutor() + "\t";
+    }
+
+    
 }
