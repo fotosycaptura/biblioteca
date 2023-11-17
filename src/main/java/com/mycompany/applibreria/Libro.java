@@ -4,6 +4,8 @@
  */
 package com.mycompany.applibreria;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Tom
@@ -23,9 +25,20 @@ public class Libro {
     private int cantidadDisponiblePrestamo;
     private String imagen;
     
-    // DEBE COMPLETAR ESTE CONSTRUCTOR
-    public Libro(int ISBN) {
-        setISBN(ISBN);
+    /**
+     * Constructor. Que hará las veces también de "Crear Libro"
+     */
+    public Libro(int ISBN, String titulo, String autor, int copiasDisponibles, int copiasParaPrestamo, String portada, ArrayList<Libro> libros) {
+        if (!encontrarLibro(ISBN, libros)){
+            setISBN(ISBN);
+            setTitulo(titulo);
+            setAutor(autor);
+            setCantidadDisponibleBiblioteca(copiasDisponibles);
+            setCantidadDisponiblePrestamo(copiasParaPrestamo);
+            setImagen(portada);
+        }else{
+            throw new IllegalArgumentException("Este ISBN del libro ya existe! Abortando...");
+        }
     }
     
     /**
@@ -40,6 +53,15 @@ public class Libro {
      */
     public void setISBN(int ISBN) {
         this.ISBN = ISBN;
+    }
+    
+    public static Boolean encontrarLibro(int ISBN, ArrayList<Libro> libros){
+        for (Libro libro: libros){
+            if (libro.getISBN() == ISBN){
+                return true;
+            }
+        }
+        return false;
     }
     
     /**
@@ -67,6 +89,10 @@ public class Libro {
      * @param cantidadDisponibleBiblioteca the cantidadDisponibleBiblioteca to set
      */
     public void setCantidadDisponibleBiblioteca(int cantidadDisponibleBiblioteca) {
+        if (cantidadDisponibleBiblioteca <= 0){
+            throw new IllegalArgumentException("Debe ingresar un valor mayor que cero.");
+        }
+        
         this.cantidadDisponibleBiblioteca = cantidadDisponibleBiblioteca;
     }
 
