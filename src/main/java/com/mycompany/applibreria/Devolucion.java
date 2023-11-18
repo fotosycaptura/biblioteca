@@ -23,7 +23,11 @@ public class Devolucion {
     private Usuario usuario;
     private Libro libro;
     
+    /**
+     * Método constructor
+     */
     public Devolucion(){
+        
         GregorianCalendar fechaDevolucion = new GregorianCalendar();
         fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, a1.getDias());
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
