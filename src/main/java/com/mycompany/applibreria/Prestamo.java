@@ -173,6 +173,9 @@ public class Prestamo {
             throw new IllegalArgumentException("El prestamo a buscar no existe.");
         }
         
+        //Se valida la existencia del libro
+        //prestamo.getLibro().getISBN()
+        
         // UNA VEZ GENERADAS TODAS LAS VALIDACIONES, EJECUTAMOS EL MÉTODO ASIGNAR DEVOLUCIÓN
         prestamo.asignarDevolucion();
     }
@@ -219,7 +222,13 @@ public class Prestamo {
             
             // PREGUNTO SI EL RUT DEL USUARIO ES IGUAL AL RUN QUE BUSCO Y EL ISBN DEL LIBRO ES IGUAL AL ISBN A BUSCAR
             // FALTA VALIDAR QUE EL PRÉSTAMO ESTÉ ACTUALMENTE ACTIVO Y NO ENCUENTRE UN PRÉSTAMO YA DEVUELVO
-            if (prestamo.getUsuario().getRUN() == RUN && prestamo.getLibro().getISBN() == ISBN) {
+            if (prestamo.getUsuario().getRUN().equals(RUN) && prestamo.getLibro().getISBN() == ISBN) {
+                //Creo que se refiere a que: se encontró el libro en array, 
+                //Se encontró usuario en array, pero falta ver si libro y usuario
+                //coinciden en el préstamo, imagino...
+                if (prestamo.getUsuario().getLibroPrestamo() != ISBN){
+                    throw new IllegalArgumentException("Este usuario no solicitó este préstamo.");
+                }
                 // SI LO ENCUENTRO, LO RETORNO
                 return prestamo;
             }
