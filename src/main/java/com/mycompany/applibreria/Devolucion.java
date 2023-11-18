@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.applibreria;
-
+import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 /**
  *
  * @author Tom
@@ -16,5 +17,17 @@ package com.mycompany.applibreria;
  * Ivan Rojas
  */
 public class Devolucion {
+    private int ISBN;
+    private String RUN;
     
+    private Usuario usuario;
+    private Libro libro;
+    
+    public Devolucion(){
+        GregorianCalendar fechaDevolucion = new GregorianCalendar();
+        fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, a1.getDias());
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
+        fmt.setCalendar(fechaDevolucion);
+        String fechaFormateada = fmt.format(fechaDevolucion.getTime());
+    }
 }
