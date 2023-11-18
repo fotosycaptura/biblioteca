@@ -196,9 +196,11 @@ public class Libro {
      */
     @Override
     public String toString() {
-        return "ISGN: " + getISBN() + "\t" +
+        return "ISBN: " + getISBN() + "\t" +
                 "Título: " + getTitulo() + "\t" +
-                "Carrera: " + getAutor() + "\t";
+                "Autor: " + getAutor() + "\t" +
+                "En inventario: " + getCantidadDisponibleBiblioteca() + "\t" +
+                "Disponibles para préstamos: " + getCantidadDisponiblePrestamo();
     }
 
     
