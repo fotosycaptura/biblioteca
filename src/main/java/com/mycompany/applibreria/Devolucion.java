@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 public class Devolucion {
     private int ISBN;
     private String RUN;
-    
+    private int multa;
     private Usuario usuario;
     private Libro libro;
     
@@ -29,9 +29,81 @@ public class Devolucion {
     public Devolucion(){
         
         GregorianCalendar fechaDevolucion = new GregorianCalendar();
-        fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, a1.getDias());
+        
+        
+        fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, 7);
         SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
         fmt.setCalendar(fechaDevolucion);
         String fechaFormateada = fmt.format(fechaDevolucion.getTime());
+    }
+
+    /**
+     * @return the ISBN
+     */
+    public int getISBN() {
+        return ISBN;
+    }
+
+    /**
+     * @param ISBN the ISBN to set
+     */
+    public void setISBN(int ISBN) {
+        this.ISBN = ISBN;
+    }
+
+    /**
+     * @return the RUN
+     */
+    public String getRUN() {
+        return RUN;
+    }
+
+    /**
+     * @param RUN the RUN to set
+     */
+    public void setRUN(String RUN) {
+        this.RUN = RUN;
+    }
+
+    /**
+     * @return the multa
+     */
+    public int getMulta() {
+        return multa;
+    }
+
+    /**
+     * @param multa the multa to set
+     */
+    public void setMulta(int multa) {
+        this.multa = multa;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    /**
+     * @return the libro
+     */
+    public Libro getLibro() {
+        return libro;
+    }
+
+    /**
+     * @param libro the libro to set
+     */
+    public void setLibro(Libro libro) {
+        this.libro = libro;
     }
 }
