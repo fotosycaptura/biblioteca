@@ -177,13 +177,30 @@ public class Libro {
     }
     
     /**
+     * Encargado de buscar y obtener un obj de tipo libro mediante un ISBN dado
+     * @param ISBN
+     * @param libros
+     * @return 
+     */
+    public static Libro verLibro(int ISBN, ArrayList<Libro> libros){
+        for (Libro libro: libros){
+            if (libro.getISBN() == ISBN){
+                return libro;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Sobreescribe el método toString para desplegar valores personalizados.
      */
     @Override
     public String toString() {
-        return "ISGN: " + getISBN() + "\t" +
+        return "ISBN: " + getISBN() + "\t" +
                 "Título: " + getTitulo() + "\t" +
-                "Carrera: " + getAutor() + "\t";
+                "Autor: " + getAutor() + "\t" +
+                "En inventario: " + getCantidadDisponibleBiblioteca() + "\t" +
+                "Disponibles para préstamos: " + getCantidadDisponiblePrestamo();
     }
 
     

@@ -6,6 +6,7 @@ package com.mycompany.applibreria;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
+import java.text.SimpleDateFormat;
 
 /**
  *
@@ -108,14 +109,16 @@ public class Prestamo {
     
     public static Prestamo ingresarPrestamo(int ISBN, String RUN, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
+        //Ejem, se busca el libro en el ArrayList y se obtiene si existe.
         Libro libro = buscarLibro(ISBN, libros);
         
-        // SI EL LIBRO ES NULO, ES PORQUE NO LO HE ENCONTRADO
+        // Se valida si realmente se encontró
         if (libro == null) {
             throw new IllegalArgumentException("El libro a buscar no existe.");
         }
         
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARUSUARIO
+        //Se busca si existe el alumno o docente en el ArrayList
         Usuario usuario = buscarUsuario(RUN, usuarios);
         
         // SI EL USUARIO ES NULO, ES PORQUE NO LO HE ENCONTRADO
@@ -127,7 +130,14 @@ public class Prestamo {
         // AHORA DEBEMOS REALIZAR LAS VALIDACIONES
         
         // AQUÍ VALIDAMOS QUE EL LIBRO TENGA COMO MÍNIMO UN EJEMPLAR //
+        if (libro.getCantidadDisponiblePrestamo() == 0){
+            throw new IllegalArgumentException("No hay suficientes copias para préstamo de este libro.");
+        }
+        
         // AQUÍ VALIDAMOS QUE EL USUARIO DEBA ESTAR HABILTIADO PARA EL PRÉSTAMO //
+        if (usuario.getLibroPrestamo() > 0){
+            throw new IllegalArgumentException("Este usuario ya tiene un libro en calidad de préstamo asignado.");
+        }
         
         // UNAS VEZ GENERADA TODAS LAS VALIDACIONES
         
@@ -137,9 +147,18 @@ public class Prestamo {
         // ----------------------------- DENTRO DE LA INSTANCIACIÓN DEL OBJETO -------------------------------------------
         // REDUCIMOS LA CANTIDAD DISPONIBLE DEL LIBRE Y AUMENTAMOS LA CANTIDAD EN USO
         // DEJAMOS AL USUARIO NO DISPONIBLE PARA EL NUEVO PRÉSTAMO
-        // 
         
-        // RETORNAMOS EL PRÉSTAMO VALIDADO
+        //Se toma el libro y se le pasa al estudiante/docente, osea, se resta 1 a la existencia disponible de prestamos
+        prestamo.getLibro().setCantidadDisponiblePrestamo(prestamo.getLibro().getCantidadDisponiblePrestamo() -1);
+        
+        //Se establece el préstamo en sí 
+        prestamo.getUsuario().setLibroPrestamo(prestamo.getLibro().getISBN());
+        
+        GregorianCalendar fechaActual = new GregorianCalendar();
+        
+        prestamo.setFecha(fechaActual);
+        
+        // RETORNAMOS EL PRÉSTAMO VALIDADOs
         return prestamo;
     }
     
@@ -213,10 +232,15 @@ public class Prestamo {
     @Override
     public String toString() {
         // GENERAMOS UN ESTADO BASE
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        fmt.setCalendar(getFecha());
+        String fechaFormateada = fmt.format(getFecha().getTime());
+        
         String estadoBase = "Prestamo: \n" + 
-                "ISBN: " + getLibro().getISBN() + "\n" +
-                "RUN: " + getUsuario().getRUN() + "\n" +
-                "Arrendado por: " + obtenerTipoDeUsuario() + "\n" + 
+                "ISBN: " + getLibro().getISBN() + "\t" +
+                "RUN: " + getUsuario().getRUN() + "\t" +
+                "Arrendado por: " + obtenerTipoDeUsuario() + "\t" + 
+                "Fecha: " + fechaFormateada + "\t" +
                 "Estado: ";
         
         // LO MODIFICAMOS EN BASE A LA DEVOLUCIÓN

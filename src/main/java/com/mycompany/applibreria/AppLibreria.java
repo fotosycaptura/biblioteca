@@ -89,12 +89,21 @@ public class AppLibreria {
         
         System.out.println("Libros existentes en la biblioteca en total: " + libros.size());
         
-        // UN ARREGLO DE DEVOLUCIONES
+        // UN ARREGLO DE Préstamos
         ArrayList<Prestamo> prestamos = new ArrayList<Prestamo>();
+        
+        System.out.println("Visualizando libro a prestar: " + Libro.verLibro(1, libros));
+        
         // GENERAMOS UN PRÉSTAMO
         Prestamo prestamo = Prestamo.ingresarPrestamo(1, "11111111-1", libros, usuarios);
+        
+        //Se visualiza si se llevó a cabo el descuento de disponibles para préstamo por haberlo prestado.
+        System.out.println("Visualizando libro a ver si se prestó o no: " + Libro.verLibro(1, libros));
+        
         // AGREGAMOS EL PRÉTAMO AL ARREGLO DE PRÉSTAMOS
         prestamos.add(prestamo);
+        
+        
         // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
         System.out.println(prestamo.toString());
         // GENERAMOS UNA DEVOLUCION
