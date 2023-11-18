@@ -108,14 +108,16 @@ public class Prestamo {
     
     public static Prestamo ingresarPrestamo(int ISBN, String RUN, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
+        //Ejem, se busca el libro en el ArrayList y se obtiene si existe.
         Libro libro = buscarLibro(ISBN, libros);
         
-        // SI EL LIBRO ES NULO, ES PORQUE NO LO HE ENCONTRADO
+        // Se valida si realmente se encontró
         if (libro == null) {
             throw new IllegalArgumentException("El libro a buscar no existe.");
         }
         
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARUSUARIO
+        //Se busca si existe el alumno o docente en el ArrayList
         Usuario usuario = buscarUsuario(RUN, usuarios);
         
         // SI EL USUARIO ES NULO, ES PORQUE NO LO HE ENCONTRADO
@@ -127,7 +129,14 @@ public class Prestamo {
         // AHORA DEBEMOS REALIZAR LAS VALIDACIONES
         
         // AQUÍ VALIDAMOS QUE EL LIBRO TENGA COMO MÍNIMO UN EJEMPLAR //
+        if (libro.getCantidadDisponiblePrestamo() == 0){
+            throw new IllegalArgumentException("No hay suficientes copias para préstamo de este libro.");
+        }
+        
         // AQUÍ VALIDAMOS QUE EL USUARIO DEBA ESTAR HABILTIADO PARA EL PRÉSTAMO //
+        if (usuario.getLibroPrestamo() > 0){
+            throw new IllegalArgumentException("Este usuario ya tiene un libro en calidad de préstamo asignado.");
+        }
         
         // UNAS VEZ GENERADA TODAS LAS VALIDACIONES
         
@@ -138,8 +147,9 @@ public class Prestamo {
         // REDUCIMOS LA CANTIDAD DISPONIBLE DEL LIBRE Y AUMENTAMOS LA CANTIDAD EN USO
         // DEJAMOS AL USUARIO NO DISPONIBLE PARA EL NUEVO PRÉSTAMO
         // 
-        
-        // RETORNAMOS EL PRÉSTAMO VALIDADO
+        prestamo.getLibro().setCantidadDisponiblePrestamo(prestamo.getLibro().getCantidadDisponiblePrestamo() -1);
+        prestamo.getUsuario().setLibroPrestamo(prestamo.getLibro().getISBN());
+        // RETORNAMOS EL PRÉSTAMO VALIDADOs
         return prestamo;
     }
     
