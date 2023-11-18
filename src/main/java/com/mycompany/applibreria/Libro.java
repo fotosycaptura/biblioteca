@@ -177,6 +177,21 @@ public class Libro {
     }
     
     /**
+     * Encargado de buscar y obtener un obj de tipo libro mediante un ISBN dado
+     * @param ISBN
+     * @param libros
+     * @return 
+     */
+    public static Libro verLibro(int ISBN, ArrayList<Libro> libros){
+        for (Libro libro: libros){
+            if (libro.getISBN() == ISBN){
+                return libro;
+            }
+        }
+        return null;
+    }
+    
+    /**
      * Sobreescribe el método toString para desplegar valores personalizados.
      */
     @Override
