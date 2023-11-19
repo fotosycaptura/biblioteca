@@ -113,10 +113,11 @@ public class Prestamo {
         libroAReponer.setCantidadDisponiblePrestamo(libroAReponer.getCantidadDisponiblePrestamo() + 1);
         
         // TENGO QUE COBRAR MULTA SI ES QUE CORRESPONDE
-        if (devolucion.getMulta() > 0){
-            System.out.println("El " + obtenerTipoDeUsuario() + " debe de pagar multa por haber transcurrido " + devolucion.getDiasTranscurridos() + " días. $1000 pesos por cada día extra transcurrido.");
-            System.out.println("La multa es de: $" + devolucion.getMulta() + " pesos.");
-        }
+        //Lo muestro en la impresión de la ficha
+//        if (devolucion.getMulta() > 0){
+//            System.out.println("El " + obtenerTipoDeUsuario() + " debe de pagar multa por haber transcurrido " + devolucion.getDiasTranscurridos() + " días. $1000 pesos por cada día extra transcurrido.");
+//            System.out.println("La multa es de: $" + devolucion.getMulta() + " pesos.");
+//        }
         
         
     }
@@ -331,10 +332,11 @@ public class Prestamo {
         String fechaFmtPrestamo = fmt.format(getFecha().getTime());
         String fechaFmtDevolucion = "";
         String estadoPrestamo = "En prestamo";
-        
+        String comentariosMulta = "";
         if (getDevolucion() != null){
              fechaFmtDevolucion = fmt.format(getDevolucion().getFechaDevolucion().getTime());
              estadoPrestamo = "Devuelto";
+             comentariosMulta = getDevolucion().toString();
         }
         
         for(int i=0; i < 80; i++){
@@ -356,7 +358,7 @@ public class Prestamo {
         System.out.println("");
         System.out.println(fechaFmtPrestamo + "      " + "[" + obtenerTipoDeUsuario() + "]" + getUsuario().getRUN() + "/" + getUsuario().getNombre() + "       " + getDias() + " días" + "          " + fechaFmtDevolucion);
         System.out.println("");
-        
+        System.out.println("Comentarios: " + comentariosMulta);
         
         for(int i=0; i < 80; i++){
             System.out.print("=");
