@@ -97,11 +97,17 @@ public class AppLibreria {
         // GENERAMOS UN PRÉSTAMO
         Prestamo prestamo = Prestamo.ingresarPrestamo(1, "11111111-1", 27, libros, usuarios);
         
+        //Se generan otros préstamos
+        Prestamo prestamo2 = Prestamo.ingresarPrestamo(2, "44444444-4", 5, libros, usuarios);
+        Prestamo prestamo3 = Prestamo.ingresarPrestamo(4, "55555555-5", 7, libros, usuarios);
+        
         //Se visualiza si se llevó a cabo el descuento de disponibles para préstamo por haberlo prestado.
         System.out.println("Visualizando libro a ver si se prestó o no: " + Libro.verLibro(1, libros));
         
         // AGREGAMOS EL PRÉTAMO AL ARREGLO DE PRÉSTAMOS
         prestamos.add(prestamo);
+        prestamos.add(prestamo2);
+        prestamos.add(prestamo3);
         
         
         // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
