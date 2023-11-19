@@ -108,7 +108,7 @@ public class Prestamo {
         // TENGO QUE COBRAR MULTA SI ES QUE CORRESPONDE
     }
     
-    public static Prestamo ingresarPrestamo(int ISBN, String RUN, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
+    public static Prestamo ingresarPrestamo(int ISBN, String RUN, int dias, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
         //Ejem, se busca el libro en el ArrayList y se obtiene si existe.
         Libro libro = buscarLibro(ISBN, libros);
@@ -158,6 +158,8 @@ public class Prestamo {
         GregorianCalendar fechaActual = new GregorianCalendar();
         
         prestamo.setFecha(fechaActual);
+        
+        prestamo.setDias(dias);
         
         // RETORNAMOS EL PRÉSTAMO VALIDADOs
         return prestamo;
@@ -239,30 +241,6 @@ public class Prestamo {
         return null;
     }
     
-    @Override
-    public String toString() {
-        // GENERAMOS UN ESTADO BASE
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-        fmt.setCalendar(getFecha());
-        String fechaFormateada = fmt.format(getFecha().getTime());
-        
-        String estadoBase = "Prestamo: \n" + 
-                "ISBN: " + getLibro().getISBN() + "\t" +
-                "RUN: " + getUsuario().getRUN() + "\t" +
-                "Arrendado por: " + obtenerTipoDeUsuario() + "\t" + 
-                "Fecha: " + fechaFormateada + "\t" +
-                "Estado: ";
-        
-        // LO MODIFICAMOS EN BASE A LA DEVOLUCIÓN
-        if (getDevolucion() == null) {
-            estadoBase += "En préstamo.";
-        } else {
-            estadoBase += "Devuelto.";
-        }
-        
-        return estadoBase;
-    }
-
     /**
      * @return the dias
      */
@@ -279,5 +257,30 @@ public class Prestamo {
         }
         
         this.dias = dias;
+    }
+    
+    @Override
+    public String toString() {
+        // GENERAMOS UN ESTADO BASE
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        fmt.setCalendar(getFecha());
+        String fechaFormateada = fmt.format(getFecha().getTime());
+        
+        String estadoBase = "Prestamo: \n" + 
+                "ISBN: " + getLibro().getISBN() + "\t" +
+                "RUN: " + getUsuario().getRUN() + "\t" +
+                "Arrendado por: " + obtenerTipoDeUsuario() + "\t" + 
+                "Fecha: " + fechaFormateada + "\t" +
+                "Días en préstamo: " + getDias() + "\t" +
+                "Estado: ";
+        
+        // LO MODIFICAMOS EN BASE A LA DEVOLUCIÓN
+        if (getDevolucion() == null) {
+            estadoBase += "En préstamo.";
+        } else {
+            estadoBase += "Devuelto.";
+        }
+        
+        return estadoBase;
     }
 }
