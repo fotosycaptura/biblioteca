@@ -339,7 +339,7 @@ public class Prestamo {
              comentariosMulta = getDevolucion().toString();
         }
         
-        for(int i=0; i < 80; i++){
+        for(int i=0; i < 100; i++){
             System.out.print("=");
         }
         System.out.println("");
@@ -352,7 +352,7 @@ public class Prestamo {
         System.out.println("");
         System.out.println("Fecha Préstamo           Estudiante/Docente                        Días            Fecha Devolución");
         
-        for(int i=0; i < 80; i++){
+        for(int i=0; i < 100; i++){
             System.out.print("-");
         }
         System.out.println("");
@@ -360,7 +360,7 @@ public class Prestamo {
         System.out.println("");
         System.out.println("Comentarios: " + comentariosMulta);
         
-        for(int i=0; i < 80; i++){
+        for(int i=0; i < 100; i++){
             System.out.print("=");
         }
         System.out.println("");
