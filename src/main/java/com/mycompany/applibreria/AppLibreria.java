@@ -105,12 +105,14 @@ public class AppLibreria {
         
         
         // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
-        System.out.println(prestamo.toString());
-        System.out.println("Se realiza una devoluvión");
+        prestamo.imprimirTarjetaPrestamo();
+        
+        System.out.println("Se realiza una devolución");
         // GENERAMOS UNA DEVOLUCION
         Prestamo.ingresarDevolucion(1, "11111111-1", prestamos, libros, usuarios);
         System.out.println("-----------------------------------------------------------");
-        // IMPRIMIMOS EL ESTADO ACTUAL DEL PRÉSTAMO
-        System.out.println(prestamo.toString());
+        
+        //se imprime nuevamente la tarjeta para ver diferencias ya una vez devuelto el libro
+        prestamo.imprimirTarjetaPrestamo();
     }
 }
