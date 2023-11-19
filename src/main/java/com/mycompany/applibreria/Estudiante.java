@@ -48,4 +48,8 @@ public class Estudiante extends Usuario {
                 "Nombre: " + getNombre() + "\t" +
                 "Carrera: " + getCarrera() + "\t";
     }
+    @Override
+    public String getTipo(){
+        return "Estudiante";
+    }
 }

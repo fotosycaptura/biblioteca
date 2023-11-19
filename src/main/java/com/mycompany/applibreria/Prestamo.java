@@ -31,6 +31,12 @@ public class Prestamo {
         setLibro(libro);
     }
     
+    public Prestamo(Usuario usuario, Libro libro, GregorianCalendar fecha) {
+        setUsuario(usuario);
+        setLibro(libro);
+        setFecha(fecha);
+    }
+    
     /**
      * @return the usuario
      */
@@ -95,13 +101,30 @@ public class Prestamo {
         return "Estudiante";
     }
     
-    // SOLICITO LOS PARÁMETROS DE ENTRADA DE LA DEVOLUCIÓN
-    public void asignarDevolucion() {
+      // SOLICITO LOS PARÁMETROS DE ENTRADA DE LA DEVOLUCIÓN
+    public void asignarDevolucion(ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
+        
+        // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARUSUARIO
+        //Se busca si existe el alumno o docente en el ArrayList
+        Usuario usuario = buscarUsuario(this.usuario.getRUN(), usuarios);
+        
+        // SI EL USUARIO ES NULO, ES PORQUE NO LO HE ENCONTRADO
+        if (usuario == null) {
+            throw new IllegalArgumentException("El usuario a buscar no existe.");
+        }
+                // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
+        Libro libro = buscarLibro(this.libro.getISBN(), libros);
+        
+        // SI EL LIBRO ES NULO, ES PORQUE NO LO HE ENCONTRADO
+        if (libro == null) {
+            throw new IllegalArgumentException("El libro a buscar no existe.");
+        }
         // POR AHORA SE GENERA VACIÓ PARA QUE USTED LO COMPLETE
-        Devolucion devolucion = new Devolucion();
+       Devolucion devolucion = new Devolucion(new Prestamo(getUsuario(), getLibro(), getFecha()));
+        
         // ASINGO LA DEVOLUCIÓN RESPETANDO LA RELACIÓN DE COMPOSICIÓN
         // DEBIDO A QUE DEVOLUCIÓN SE INSTANCIÓ DENTRO DEL OBJETO Y NO POR FUERA
-        setDevolucion(devolucion);
+        //setDevolucion(devolucion);
         // TENGO QUE HABILITAR AL USUARIO
         // TENGO QUE AUMENTAR EL STOCK DISPONBILE Y DISMINUIR EL STOCK ASIGNADO
         // TENGO QUE COBRAR MULTA SI ES QUE CORRESPONDE
@@ -162,7 +185,7 @@ public class Prestamo {
         return prestamo;
     }
     
-    public static void ingresarDevolucion(int ISBN, String RUN, ArrayList<Prestamo> prestamos) {
+    public static void ingresarDevolucion(int ISBN, String RUN, ArrayList<Prestamo> prestamos, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // EN BASE A LA GUÍA, DEBEMOS VALIDAR QUE EXISTA EL LIBRO Y EL USUARIO
         
         // LUEGO DEBEMOS VALIDAR QUE EL USUARIO A BUSCAR Y EL ISBN EXISTAN
@@ -174,7 +197,7 @@ public class Prestamo {
         }
         
         // UNA VEZ GENERADAS TODAS LAS VALIDACIONES, EJECUTAMOS EL MÉTODO ASIGNAR DEVOLUCIÓN
-        prestamo.asignarDevolucion();
+        prestamo.asignarDevolucion(libros, usuarios);
     }
     
     public static Libro buscarLibro(int ISBN, ArrayList<Libro> libros) {

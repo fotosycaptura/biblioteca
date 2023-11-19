@@ -76,4 +76,9 @@ public class Docente extends Usuario {
                 "Profesión: " + getProfesion() + "\t" +
                 "Grado Académico: " + getGradoAcademico() + "\t";
     }
+    
+    @Override
+    public String getTipo(){
+        return "Docente";
+    }
 }

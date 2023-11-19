@@ -259,5 +259,7 @@ public abstract class Usuario {
         }
         return null;
     }
-    
+    public String getTipo(){
+        throw new IllegalArgumentException( "Metodo no pregramado");
+    }
 }
