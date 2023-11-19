@@ -4,7 +4,6 @@
  */
 package com.mycompany.applibreria;
 import java.util.GregorianCalendar;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 /**
  *
