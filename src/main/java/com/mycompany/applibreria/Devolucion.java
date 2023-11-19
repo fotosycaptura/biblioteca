@@ -58,6 +58,24 @@ public class Devolucion {
         return intMulta;
     }
 
+    public int getDiasRetraso(){
+        //Tope días de estudiante
+        int TopeDias = 10;
+        int diasRetraso = 0;
+        
+        if (getPrestamo().obtenerTipoDeUsuario().equals("Docente")){
+            //Tope días docente
+            TopeDias = 20;
+        }
+
+        //A contar después del tope de días se le cobrará una multa por cada día transcurrido
+        //Ejemplo, si pasaron 21 días, se pasó 1 día del tope, entonces multa de 1000
+        if (getDiasTranscurridos() > TopeDias){
+            diasRetraso = (getDiasTranscurridos() - TopeDias);
+        }
+         
+        return diasRetraso;
+    }
     
     public int calcularDiasTranscurridos(Date fechaInicio, Date fechaTermino){
         int miliSegundosPorDia = 86400000;
@@ -120,5 +138,14 @@ public class Devolucion {
         this.diasTranscurridos = diasTranscurridos;
     }
 
-    
+    /**
+     * Sobreescribe el método toString para desplegar valores personalizados.
+     */
+    @Override
+    public String toString() {
+        
+        return "Días transcurridos: " + getDiasTranscurridos() + "\t" +
+                "Días de retraso: " + getDiasRetraso() + "\t" + 
+                "Multa: " + getMulta() + "\t";
+    }
 }
