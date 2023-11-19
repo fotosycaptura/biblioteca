@@ -23,6 +23,7 @@ public class Prestamo {
     private Usuario usuario;
     private Libro libro;
     private GregorianCalendar fecha;
+    private int dias;
     private Devolucion devolucion;
     
     // DEBE COMPLETAR ESTE CONSTRUCTOR
@@ -260,5 +261,23 @@ public class Prestamo {
         }
         
         return estadoBase;
+    }
+
+    /**
+     * @return the dias
+     */
+    public int getDias() {
+        return dias;
+    }
+
+    /**
+     * @param dias the dias to set
+     */
+    public void setDias(int dias) {
+        if (dias <= 0){
+            throw new IllegalArgumentException("Debe de ingresar un número de días de préstamo mayor que 0.");
+        }
+        
+        this.dias = dias;
     }
 }
