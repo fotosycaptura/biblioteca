@@ -95,7 +95,7 @@ public class AppLibreria {
         System.out.println("Visualizando libro a prestar: " + Libro.verLibro(1, libros));
         
         // GENERAMOS UN PRÉSTAMO
-        Prestamo prestamo = Prestamo.ingresarPrestamo(1, "11111111-1", libros, usuarios);
+        Prestamo prestamo = Prestamo.ingresarPrestamo(1, "11111111-1", 7, libros, usuarios);
         
         //Se visualiza si se llevó a cabo el descuento de disponibles para préstamo por haberlo prestado.
         System.out.println("Visualizando libro a ver si se prestó o no: " + Libro.verLibro(1, libros));
