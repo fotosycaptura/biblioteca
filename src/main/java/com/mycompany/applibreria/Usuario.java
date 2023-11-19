@@ -154,6 +154,14 @@ public abstract class Usuario {
      * Se setea un libro si es que libroPrestamo está en 0
      */
     public void setLibroPrestamo(int libroPrestamo) {
+        //Si viene un 0 quiere decir que quieren realizar una devolución, por tanto
+        //Hay que setear en 0
+        if (libroPrestamo == 0 && getLibroPrestamo() > 0){
+            this.libroPrestamo = libroPrestamo;
+            return;
+        }
+        
+        //Si quieren setear un libro, se valida que no tenga uno antes asignado
         if (getLibroPrestamo() != 0){
             throw new IllegalArgumentException("Este usuario ya tiene un libro en préstamo");
         }
