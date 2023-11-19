@@ -7,6 +7,7 @@ package com.mycompany.applibreria;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  *
@@ -97,16 +98,31 @@ public class Prestamo {
     }
     
     // SOLICITO LOS PARÁMETROS DE ENTRADA DE LA DEVOLUCIÓN
-    public void asignarDevolucion() {
-        // POR AHORA SE GENERA VACIÓ PARA QUE USTED LO COMPLETE
-        Devolucion devolucion = new Devolucion();
-        // ASINGO LA DEVOLUCIÓN RESPETANDO LA RELACIÓN DE COMPOSICIÓN
-        // DEBIDO A QUE DEVOLUCIÓN SE INSTANCIÓ DENTRO DEL OBJETO Y NO POR FUERA
+    public void asignarDevolucion(GregorianCalendar fechaDevolucion, Prestamo prestamo, ArrayList<Usuario> usuarios, ArrayList<Libro> libros) {
+        
+        Devolucion devolucion = new Devolucion(fechaDevolucion, prestamo);
+        // Se asigna la devolución respetando la relación de composición
+        // Debido a que devolución se instancia dentro del objeto y no por fuera
         setDevolucion(devolucion);
+        
         // TENGO QUE HABILITAR AL USUARIO
+        Usuario usuarioALiberar = Usuario.verUsuario(prestamo.getUsuario().getRUN(), usuarios);
+        usuarioALiberar.setLibroPrestamo(0);
+        
         // TENGO QUE AUMENTAR EL STOCK DISPONBILE Y DISMINUIR EL STOCK ASIGNADO
+        Libro libroAReponer = Libro.verLibro(prestamo.getLibro().getISBN(), libros);
+        libroAReponer.setCantidadDisponiblePrestamo(libroAReponer.getCantidadDisponiblePrestamo() + 1);
+        
         // TENGO QUE COBRAR MULTA SI ES QUE CORRESPONDE
+        if (devolucion.getMulta() > 0){
+            System.out.println("El " + obtenerTipoDeUsuario() + " debe de pagar multa por haber transcurrido " + devolucion.getDiasTranscurridos() + " días. $1000 pesos por cada día extra transcurrido.");
+            System.out.println("La multa es de: $" + devolucion.getMulta() + " pesos.");
+        }
+        
+        
     }
+    
+    
     
     public static Prestamo ingresarPrestamo(int ISBN, String RUN, int dias, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
@@ -165,22 +181,40 @@ public class Prestamo {
         return prestamo;
     }
     
-    public static void ingresarDevolucion(int ISBN, String RUN, ArrayList<Prestamo> prestamos) {
+    public static void ingresarDevolucion(int ISBN, String RUN, ArrayList<Prestamo> prestamos, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // EN BASE A LA GUÍA, DEBEMOS VALIDAR QUE EXISTA EL LIBRO Y EL USUARIO
         
-        // LUEGO DEBEMOS VALIDAR QUE EL USUARIO A BUSCAR Y EL ISBN EXISTAN
-        // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCAR PRESTAMO
+        //Se realiza la búsqueda del libro en el array de libros
+        Libro libro = buscarLibro(ISBN, libros);
+        if (libro == null){
+            throw new IllegalArgumentException("El libro a buscar no existe.");
+        }
+        
+        //Se realiza la búsqueda del usuario en el Array de usuarios
+        Usuario usuario = buscarUsuario(RUN, usuarios);
+        if (usuario == null){
+            throw new IllegalArgumentException("El usuario a buscar no existe.");
+        }
+        
+        //Ambos existen, ahora se busca en préstamo
         Prestamo prestamo = buscarPrestamo(ISBN, RUN, prestamos);
         // SI EL PRÉTAMO ES NULO, ES PORQUE NO LO HE ENCONTRADO
         if (prestamo == null) {
             throw new IllegalArgumentException("El prestamo a buscar no existe.");
         }
         
-        //Se valida la existencia del libro
-        //prestamo.getLibro().getISBN()
+        /* Se genera la fecha de devolución. En un caso normal, esta fecha se debería de capturar del sistema o permitir el ingreso
+        del usuario y en base a eso, se debería de calcular la cantidad de días transcurridos y ahí realizar el cálculo después para 
+        el total a pagar en multas si es que hubiera tal caso.
+        Como en esta tarea se agregó el número de días al momento de generar el arriendo, creo que lo lógico sería sumar esa cantidad de días 
+        a la fecha actual para simular la fecha de devolución.
+        */
+        
+        GregorianCalendar fechaDevolucion = new GregorianCalendar();
+        fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, prestamo.getDias());
         
         // UNA VEZ GENERADAS TODAS LAS VALIDACIONES, EJECUTAMOS EL MÉTODO ASIGNAR DEVOLUCIÓN
-        prestamo.asignarDevolucion();
+        prestamo.asignarDevolucion(fechaDevolucion, prestamo, usuarios, libros);
     }
     
     public static Libro buscarLibro(int ISBN, ArrayList<Libro> libros) {
@@ -217,22 +251,28 @@ public class Prestamo {
         return null;
     }
     
+    /**
+     * Se busca el préstamo mediante el ISBN y el RUN
+     * Se valida que el usuario haya solicitado ese libro
+     * @param ISBN
+     * @param RUN
+     * @param prestamos
+     * @return 
+     */
     public static Prestamo buscarPrestamo(int ISBN, String RUN, ArrayList<Prestamo> prestamos) {
         // BUSCO EL PRESTAMO EN EL ARREGLO DE PRESTAMOS
         for (int i = 0; i < prestamos.size(); i++) {
             // VOY OBTENIENDO CADA PRESTAMO EN EL ARREGLO DE PRESTAMO
             Prestamo prestamo = prestamos.get(i);
             
-            // PREGUNTO SI EL RUT DEL USUARIO ES IGUAL AL RUN QUE BUSCO Y EL ISBN DEL LIBRO ES IGUAL AL ISBN A BUSCAR
-            // FALTA VALIDAR QUE EL PRÉSTAMO ESTÉ ACTUALMENTE ACTIVO Y NO ENCUENTRE UN PRÉSTAMO YA DEVUELVO
+            //Se verifica si el ISBN y el usuario existen en el préstamo
             if (prestamo.getUsuario().getRUN().equals(RUN) && prestamo.getLibro().getISBN() == ISBN) {
-                //Creo que se refiere a que: se encontró el libro en array, 
                 //Se encontró usuario en array, pero falta ver si libro y usuario
-                //coinciden en el préstamo, imagino...
+                //coinciden en el préstamo...
                 if (prestamo.getUsuario().getLibroPrestamo() != ISBN){
                     throw new IllegalArgumentException("Este usuario no solicitó este préstamo.");
                 }
-                // SI LO ENCUENTRO, LO RETORNO
+                //Al encontrarse, se retorna el obj préstamo
                 return prestamo;
             }
         }
