@@ -5,6 +5,7 @@
 package com.mycompany.applibreria;
 import java.util.GregorianCalendar;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author Tom
@@ -17,54 +18,53 @@ import java.text.SimpleDateFormat;
  * Ivan Rojas
  */
 public class Devolucion {
-    private int ISBN;
-    private String RUN;
+    private GregorianCalendar fechaDevolucion;
     private int multa;
-    private Usuario usuario;
-    private Libro libro;
+    private int diasTranscurridos;
+    private Prestamo prestamo;
+    
     
     /**
      * Método constructor
      */
-    public Devolucion(){
+    public Devolucion(GregorianCalendar fechaDevolucion, Prestamo prestamo){
         
-        GregorianCalendar fechaDevolucion = new GregorianCalendar();
+        setFechaDevolucion(fechaDevolucion);
+        setPrestamo(prestamo);
+        setMulta(calcularMulta());
         
+    }
+    
+    private int calcularMulta(){
+        //Tope días de estudiante
+        int TopeDias = 10;
+        int intMulta = 0;
         
-        fechaDevolucion.add(fechaDevolucion.DAY_OF_MONTH, 7);
-        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy");
-        fmt.setCalendar(fechaDevolucion);
-        String fechaFormateada = fmt.format(fechaDevolucion.getTime());
+        if (getPrestamo().obtenerTipoDeUsuario().equals("Docente")){
+            //Tope días docente
+            TopeDias = 20;
+        }
+        
+        //Cálculo de días entre las dos fechas, aunque tenemos la cantidad de días con getDias
+        //Se entiende que en un caso real la obtención de días sería mediante las fechas obtenidas en el inicio
+        //término del préstamo, entonces ahí habría que realizar el cálculo de días.
+        setDiasTranscurridos(calcularDiasTranscurridos(prestamo.getFecha().getTime(), getFechaDevolucion().getTime()));
+
+        //A contar después del tope de días se le cobrará una multa por cada día transcurrido
+        //Ejemplo, si pasaron 21 días, se pasó 1 día del tope, entonces multa de 1000
+        if (getDiasTranscurridos() > TopeDias){
+            intMulta = (getDiasTranscurridos() - TopeDias) * 1000;
+        }
+         
+        return intMulta;
     }
 
-    /**
-     * @return the ISBN
-     */
-    public int getISBN() {
-        return ISBN;
+    
+    public int calcularDiasTranscurridos(Date fechaInicio, Date fechaTermino){
+        int miliSegundosPorDia = 86400000;
+        return (int) (fechaInicio.getTime() - fechaTermino.getTime())/miliSegundosPorDia;
     }
-
-    /**
-     * @param ISBN the ISBN to set
-     */
-    public void setISBN(int ISBN) {
-        this.ISBN = ISBN;
-    }
-
-    /**
-     * @return the RUN
-     */
-    public String getRUN() {
-        return RUN;
-    }
-
-    /**
-     * @param RUN the RUN to set
-     */
-    public void setRUN(String RUN) {
-        this.RUN = RUN;
-    }
-
+    
     /**
      * @return the multa
      */
@@ -80,30 +80,46 @@ public class Devolucion {
     }
 
     /**
-     * @return the usuario
+     * @return the fechaDevolucion
      */
-    public Usuario getUsuario() {
-        return usuario;
+    public GregorianCalendar getFechaDevolucion() {
+        return fechaDevolucion;
     }
 
     /**
-     * @param usuario the usuario to set
+     * @param fechaDevolucion the fechaDevolucion to set
      */
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setFechaDevolucion(GregorianCalendar fechaDevolucion) {
+        this.fechaDevolucion = fechaDevolucion;
     }
 
     /**
-     * @return the libro
+     * @return the prestamo
      */
-    public Libro getLibro() {
-        return libro;
+    public Prestamo getPrestamo() {
+        return prestamo;
     }
 
     /**
-     * @param libro the libro to set
+     * @param prestamo the prestamo to set
      */
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setPrestamo(Prestamo prestamo) {
+        this.prestamo = prestamo;
     }
+
+    /**
+     * @return the diasTranscurridos
+     */
+    public int getDiasTranscurridos() {
+        return diasTranscurridos;
+    }
+
+    /**
+     * @param diasTranscurridos the diasTranscurridos to set
+     */
+    public void setDiasTranscurridos(int diasTranscurridos) {
+        this.diasTranscurridos = diasTranscurridos;
+    }
+
+    
 }
