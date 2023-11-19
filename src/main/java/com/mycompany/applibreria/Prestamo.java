@@ -121,8 +121,6 @@ public class Prestamo {
         
     }
     
-    
-    
     public static Prestamo ingresarPrestamo(int ISBN, String RUN, int dias, ArrayList<Libro> libros, ArrayList<Usuario> usuarios) {
         // ASIGNO UNA VARIABLE CON VALOR A LO QUE RETORNE EL MÉTODO BUSCARLIBRO
         //Ejem, se busca el libro en el ArrayList y se obtiene si existe.
@@ -321,5 +319,48 @@ public class Prestamo {
         }
         
         return estadoBase;
+    }
+    
+    /**
+     * Se encarga de imprimir la tarjeta de préstamo
+     */
+    public void imprimirTarjetaPrestamo(){
+
+        SimpleDateFormat fmt = new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        fmt.setCalendar(getFecha());
+        String fechaFmtPrestamo = fmt.format(getFecha().getTime());
+        String fechaFmtDevolucion = "";
+        String estadoPrestamo = "En prestamo";
+        
+        if (getDevolucion() != null){
+             fechaFmtDevolucion = fmt.format(getDevolucion().getFechaDevolucion().getTime());
+             estadoPrestamo = "Devuelto";
+        }
+        
+        for(int i=0; i < 80; i++){
+            System.out.print("=");
+        }
+        System.out.println("");
+        System.out.println("                      Tarjeta de Préstamo");
+        System.out.println("");
+        System.out.println("                        ISBN           : " + getLibro().getISBN());
+        System.out.println("                        Libro          : " + getLibro().getTitulo());
+        System.out.println("                        Autor          : " + getLibro().getAutor());
+        System.out.println("                        Estado         : " + estadoPrestamo);
+        System.out.println("");
+        System.out.println("Fecha Préstamo           Estudiante/Docente                        Días            Fecha Devolución");
+        
+        for(int i=0; i < 80; i++){
+            System.out.print("-");
+        }
+        System.out.println("");
+        System.out.println(fechaFmtPrestamo + "      " + "[" + obtenerTipoDeUsuario() + "]" + getUsuario().getRUN() + "/" + getUsuario().getNombre() + "       " + getDias() + " días" + "          " + fechaFmtDevolucion);
+        System.out.println("");
+        
+        
+        for(int i=0; i < 80; i++){
+            System.out.print("=");
+        }
+        System.out.println("");
     }
 }
