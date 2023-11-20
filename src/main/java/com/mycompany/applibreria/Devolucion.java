@@ -79,7 +79,7 @@ public class Devolucion {
     
     public int calcularDiasTranscurridos(Date fechaInicio, Date fechaTermino){
         int miliSegundosPorDia = 86400000;
-        return (int) (fechaInicio.getTime() - fechaTermino.getTime())/miliSegundosPorDia;
+        return Math.abs((int) (fechaInicio.getTime() - fechaTermino.getTime())/miliSegundosPorDia);
     }
     
     /**
